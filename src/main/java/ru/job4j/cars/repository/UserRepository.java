@@ -78,7 +78,7 @@ public class UserRepository {
      */
     public List<User> findAllOrderById() {
         Session session = sf.openSession();
-        List<User> result = null;
+        List<User> result = List.of(new User());
         try {
             session.beginTransaction();
             result = session.createQuery("from User order by id asc", User.class)
@@ -99,7 +99,7 @@ public class UserRepository {
      */
     public Optional<User> findById(int userId) {
         Session session = sf.openSession();
-        Optional<User> result = null;
+        Optional<User> result = Optional.of(new User());
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
@@ -123,7 +123,7 @@ public class UserRepository {
      */
     public List<User> findByLikeLogin(String key) {
         Session session = sf.openSession();
-        List<User> result = null;
+        List<User> result = List.of(new User());
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
@@ -147,7 +147,7 @@ public class UserRepository {
      */
     public Optional<User> findByLogin(String login) {
         Session session = sf.openSession();
-        Optional<User> result = null;
+        Optional<User> result = Optional.of(new User());
         try {
             session.beginTransaction();
             Query<User> query = session.createQuery(
@@ -159,7 +159,7 @@ public class UserRepository {
             session.getTransaction().rollback();
         } finally {
             session.close();
+            return result;
         }
-        return result;
     }
 }
